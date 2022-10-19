@@ -20,7 +20,7 @@ namespace RPG.Control
         {
             if (InteractWithCombat()) { return; }
             if (InteractWithMovement()) { return; }
-            print("Nothing To Do !");
+            //print("Nothing To Do !");
         }
 
         private bool InteractWithCombat()
@@ -31,6 +31,11 @@ namespace RPG.Control
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 if (target == null) { continue; }
+
+                if (!GetComponent<Fighter>().CanAttack(target))
+                {
+                    continue;
+                }
 
                 if(Input.GetMouseButtonDown(0))
                 {
