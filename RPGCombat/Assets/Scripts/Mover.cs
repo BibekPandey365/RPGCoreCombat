@@ -1,0 +1,39 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class Mover : MonoBehaviour
+{
+    [SerializeField] Transform target;
+
+    Ray lastRay;
+
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            MoveToCursor();
+        }
+
+        //GetComponent<NavMeshAgent>().SetDestination(target.position);
+    }
+
+    private void MoveToCursor()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        bool hasHit = Physics.Raycast(ray, out hit);
+
+        if(hasHit)
+        {
+            GetComponent<NavMeshAgent>().destination = hit.point;
+        }
+    }
+}
